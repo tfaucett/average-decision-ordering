@@ -15,14 +15,18 @@ def filter2D(x, y, target):
 
 ''' Ordering Discriminant '''
 def DO(fx, gx, target, n_data):
+    # Data is shuffled to select a random subset of the input
     data = np.vstack((fx, gx, target)).T
     np.random.seed(123)
     np.random.shuffle(data)
-    fx = data[:,0]
-    gx = data[:,1]
-    target = data[:,2]
-    fx, gx, target = fx[0:n_data], gx[0:n_data], target[0:n_data]
-    fx0, gx0, fx1, gx1 = filter2D(fx, gx, target)
+
+    # Reduce dataset to n_data size
+    data = data[0:n_data]
+
+    # Filter data into signal and background
+    fx0, gx0, fx1, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
+
+    # Compute DO
     heavi_sum = 0
     for idx in range(len(fx0)):
         for idy in range(len(fx1)):
