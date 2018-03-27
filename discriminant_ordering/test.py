@@ -3,8 +3,10 @@
 import numpy as np
 from __init__ import DO
 
-x = np.random.rand(100)
-y = np.random.rand(100)
-targets = np.random.randint(2, size=100)
+n_data = 100
+x = np.random.rand(n_data)
+y = np.random.rand(n_data)
+targets = np.random.randint(2, size=n_data)
 
-print(DO(x, y, targets, 100))
+print(DO(fx=x, gx=y, target=targets, n_data=n_data))
+print(DO(fx=x, gx=y, target=targets, n_data=n_data, stats=True))
