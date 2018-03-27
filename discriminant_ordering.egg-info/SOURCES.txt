@@ -1,5 +1,8 @@
+README.md
 setup.py
+discriminant_ordering/__init__.py
 discriminant_ordering.egg-info/PKG-INFO
 discriminant_ordering.egg-info/SOURCES.txt
 discriminant_ordering.egg-info/dependency_links.txt
+discriminant_ordering.egg-info/not-zip-safe
 discriminant_ordering.egg-info/top_level.txt

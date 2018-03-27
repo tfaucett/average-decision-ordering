@@ -1,11 +1,11 @@
 Metadata-Version: 1.0
 Name: discriminant-ordering
 Version: 0.1
-Summary: UNKNOWN
-Home-page: UNKNOWN
-Author: UNKNOWN
-Author-email: UNKNOWN
-License: UNKNOWN
+Summary: Calculates the DO metric
+Home-page: http://github.com/tfaucett/discriminant_ordering
+Author: Taylor Faucett
+Author-email: tfaucett@uci.edu
+License: MIT
 Description-Content-Type: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN

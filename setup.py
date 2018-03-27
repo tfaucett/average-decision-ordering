@@ -1,7 +1,11 @@
 from setuptools import setup
 
-setup(
-    name='discriminant_ordering',    # This is the name of your PyPI-package.
-    version='0.1',                          # Update the version number for new releases
-    scripts=['discriminant_ordering']                  # The name of your scipt, and also the command you'll be using for calling it
-)
+setup(name='discriminant_ordering',
+      version='0.1',
+      description='Calculates the DO metric',
+      url='http://github.com/tfaucett/discriminant_ordering',
+      author='Taylor Faucett',
+      author_email='tfaucett@uci.edu',
+      license='MIT',
+      packages=['discriminant_ordering'],
+      zip_safe=False)
