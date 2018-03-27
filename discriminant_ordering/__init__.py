@@ -2,27 +2,15 @@
 
 import numpy as np
 
-""" A few commonly used functions"""
-
-def frange(start, stop, step):
-    i = start
-    while i < stop:
-        yield i
-        i += step
-
 def heaviside(x):
     return 0.5 * (np.sign(x) + 1)
 
 
 def filter2D(x, y, target):
-    x0, y0, x1, y1 = [], [], [], []
-    for i in range(len(target)):
-        if target[i] == 0:
-            x0.append(x[i])
-            y0.append(y[i])
-        elif target[i] == 1:
-            x1.append(x[i])
-            y1.append(y[i])
+    x0 = x[target==0]
+    x1 = x[target==1]
+    y0 = y[target==0]
+    y1 = y[target==1]
     return np.asarray(x0), np.asarray(y0), np.asarray(x1), np.asarray(y1)
 
 ''' Ordering Discriminant '''
