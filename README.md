@@ -8,4 +8,4 @@ The Discriminant Ordering (DO) metric is an alternative method of measuring the 
 
 The DO metric considers the way two separate functions, f(x) and g(x), map the same dataset. For any pair of inputs from the space, x and x', we compare the "ordering" between f(x) and f(x') with that of g(x) and g(x'). The Heavi-side step function is then used to determine whether function f and function g map those two inputs with the same relative ordering. So the DO is can be written as
 
-$\text{DO} = \Theta[(f(x) - f(x')) \cdot (g(x') - g(x))]$
+$$\text{DO} = \Theta[(f(x) - f(x')) \cdot (g(x') - g(x))]$$
