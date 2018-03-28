@@ -9,8 +9,8 @@ x = np.random.rand(n_data)
 y = np.random.rand(n_data)
 targets = np.random.randint(2, size=n_data)
 
-''' DO calculated without statistics '''
+# DO calculated without statistics
 print(DO(fx=x, gx=y, target=targets, n_data=n_calc))
 
-''' DO calculated with statistics (i.e. mean and stdev of DO) '''
+# DO calculated with statistics (i.e. mean and stdev of DO)
 print(DO(fx=x, gx=y, target=targets, n_data=n_calc, stats=True))

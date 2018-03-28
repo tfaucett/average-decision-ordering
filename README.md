@@ -16,11 +16,11 @@ This can be thought of graphically by the diagram below
 
 When the two mappings are perfectly similiar or perfectly dissimilar (i.e. opposit ordering), summing all DO and normalizing to 1 yields the result 0 and 1, respectively. When the mappings are not at all related (i.e. the ordering is 50% similar and 50% dissimilar), summing over all DO-> 0.5. We can then map this to a more convenient scale by taking
 
-<p align="center"><img src="images/DO_norm.pdf" alt="DO_norm" width="170px"/></p>
+<p align="center"><img src="images/DO_norm.png" alt="DO_norm" width="170px"/></p>
 
 so, in the end,
 
-<p align="center"><img src="images/DO_legend.pdf" alt="DO_legend" width="250px"/></p>
+<p align="center"><img src="images/DO_legend.png" alt="DO_legend" width="250px"/></p>
 
 ## Installing the discriminant ordering package
 
@@ -53,16 +53,61 @@ python setup.py install
 
 ### General Usage
 
+#### DO without stats
 Import the package
 
 ```python
 from discriminant_ordering import DO
-'''
+```
 
-the function requires 4 inputs:
--fx = The mapping for your first function (e.g. f_signal)
--
+The function requires 4 inputs:
+- fx = The mapping for your first function (must be an array)
+- gx = The mapping for your second function (must be an array)
+- targets = target values (e.g. signal/background) (must be an array of the form [0 1 1 0 1 ...])
+- n_data = The number of data_points you want to include in your calculation
 
 ```python
-DO(fx=x, gx=y, target=targets, n_data=)
-'''
+DO(fx=x, gx=y, target=targets, n_data=5000)
+```
+
+the output is a single floating point value of DO.
+
+#### DO with stats
+By default, DO will do a single calculation and output that DO value. An optional *stats* option will perform a bootstrap (i.e. multiple randomly selected calculations of DO) and compute the mean and standard deviation for your DO. To output *stats* for your DO, instead use the command
+
+```python
+DO(fx=x, gx=y, target=targets, n_data=5000, stats=True, boot_loops=100)
+```
+
+Where *boot_loops* allows you to specify how many times you want to loop through your data (i.e. how many calculations of DO you want to include in your mean and standard deviation). Including stats gives 2 floating point numbers as the output (i.e. mean, st_dev).
+
+## Test Example
+
+A simple test file is provided *test.py*. Using random numbers for fx, gx and the target values means we expect the DO to be approximately zero.
+
+```python
+import numpy as np
+from __init__ import DO
+
+n_data = 5000
+n_calc = 500
+x = np.random.rand(n_data)
+y = np.random.rand(n_data)
+targets = np.random.randint(2, size=n_data)
+
+# DO calculated without statistics
+print(DO(fx=x, gx=y, target=targets, n_data=n_calc))
+
+# DO calculated with statistics (i.e. mean and stdev of DO)
+print(DO(fx=x, gx=y, target=targets, n_data=n_calc, stats=True))
+```
+
+which yields the expected result (note your results will differ as every time this test file is run, it generates a new set of random values)
+```python
+0.05085998387530255
+(0.09053710506209259, 0.07337973102797485)
+```
+
+
+
+
