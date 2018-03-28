@@ -5,6 +5,9 @@ import numpy as np
 def heaviside(x):
     return 0.5 * (np.sign(x) + 1)
 
+def norm(x):
+    normed = (x-min(x))/(max(x)-min(x))
+    return normed
 
 def filter2D(x, y, target, stats=False):
     x0 = x[target==0]
@@ -15,6 +18,10 @@ def filter2D(x, y, target, stats=False):
 
 
 def calc_DO(fx, gx, target, n_data):
+    # normalize input data
+    fx = norm(fx)
+    gx = norm(gx)
+
     # Data is shuffled to select a random subset of the input
     data = np.vstack((fx, gx, target)).T
     np.random.seed(123)
