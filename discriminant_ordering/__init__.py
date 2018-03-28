@@ -58,6 +58,7 @@ def boot_strap(fx, gx, target, n_data, boot_loops):
         confidence_lower = sorted_scores[int(0.025 * len(sorted_scores))]
         confidence_upper = sorted_scores[int(0.975 * len(sorted_scores))]
         #print("Confidence interval for the score: [{:0.3f} - {:0.3}]".format(confidence_lower, confidence_upper))
+    print(bootstrapped_scores)
     DO_mean = np.mean(bootstrapped_scores)
     DO_var = np.std(bootstrapped_scores)
     return DO_mean, DO_var
