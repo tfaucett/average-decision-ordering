@@ -23,8 +23,10 @@ def calc_DO(fx, gx, target, n_data):
     fx = norm(fx)
     gx = norm(gx)
 
+    min_length = min(len(fx), len(gx))
+
     # Data is shuffled to select a random subset of the input
-    data = np.vstack((fx, gx, target)).T
+    data = np.vstack((fx[0:min_length], gx[0:min_length], target[0:min_length])).T
     np.random.seed(123)
     np.random.shuffle(data)
 

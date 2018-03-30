@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='discriminant_ordering',
-    version='0.2.2',
+    version='0.2.3',
     description='Calculates the DO metric',
     url='http://github.com/tfaucett/discriminant_ordering',
     author='Taylor Faucett',
