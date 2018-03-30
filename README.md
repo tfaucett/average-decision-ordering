@@ -87,7 +87,7 @@ A simple test file is provided *test.py*. Using random numbers for fx, gx and th
 
 ```python
 import numpy as np
-from __init__ import DO
+from discriminant_ordering import DO
 
 n_data = 5000
 n_calc = 500
@@ -100,12 +100,19 @@ print(DO(fx=x, gx=y, target=targets, n_data=n_calc))
 
 # DO calculated with statistics (i.e. mean and stdev of DO)
 print(DO(fx=x, gx=y, target=targets, n_data=n_calc, stats=True))
+
+# DO example where you expect perfect similarity (i.e. compare x with x)
+print(DO(fx=x, gx=x, target=targets, n_data=n_calc))
+print(DO(fx=x, gx=x, target=targets, n_data=n_calc, stats=True))
 ```
 
 which yields the expected result (note your results will differ as every time this test file is run, it generates a new set of random values)
 ```python
-0.05085998387530255
-(0.09053710506209259, 0.07337973102797485)
+0.0009599999999998499
+(0.030339066141999212, 0.024181331076012114)
+
+1.0
+(1.0, 8.881784197001253e-17)
 ```
 
 
