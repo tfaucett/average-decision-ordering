@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import numpy as np
-from __init__ import DO
+from __init__ import DO, calc_DO, calc_DO2
 
 n_data = 5000
 n_calc = 5000

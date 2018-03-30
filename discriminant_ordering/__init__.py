@@ -36,10 +36,10 @@ def calc_DO(fx, gx, target, n_data):
 
     # Compute DO
     dif_1 = [(x-y) for x in fx0 for y in fx1 ]
-    dif_2 = [(x-y) for x in gx1 for y in gx0 ]
-    heavi_side = np.sum(heaviside(np.multiply(dif_1,dif_2)))
+    dif_2 = [(x-y) for x in gx0 for y in gx1 ]
+    heavi_side = heaviside(np.multiply(dif_1,dif_2))
 
-    return 2*(np.abs((float(1.0/len(fx0)) * float(1.0/len(gx0)) * heavi_side) - 0.5))
+    return 2*(np.abs((float(1.0/len(heavi_side)) * np.sum(heavi_side)) - 0.5))
 
 def boot_strap(fx, gx, target, n_data, boot_loops):
     # Calculate uncertainty using bootstrap
