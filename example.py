@@ -12,3 +12,7 @@ print(DO(fx=x, gx=y, target=targets, n_data=n_calc))
 
 # DO calculated with statistics (i.e. mean and stdev of DO)
 print(DO(fx=x, gx=y, target=targets, n_data=n_calc, stats=True))
+
+# DO example where you expect perfect similarity (i.e. compare x with x)
+print(DO(fx=x, gx=x, target=targets, n_data=n_calc))
+print(DO(fx=x, gx=x, target=targets, n_data=n_calc, stats=True))
