@@ -10,3 +10,6 @@
 
 /build/
 venv/
+
+discriminant_ordering.sublime-project
+discriminant_ordering.sublime-workspace
