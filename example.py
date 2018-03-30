@@ -1,7 +1,5 @@
-#! /usr/bin/env python
-
 import numpy as np
-from __init__ import DO
+from discriminant_ordering import DO
 
 n_data = 5000
 n_calc = 500

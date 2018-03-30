@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import numpy as np
+import itertools
 
 def heaviside(x):
     return 0.5 * (np.sign(x) + 1)
@@ -9,12 +10,12 @@ def norm(x):
     normed = (x-min(x))/(max(x)-min(x))
     return normed
 
-def filter2D(x, y, target, stats=False):
-    x0 = x[target==0]
-    x1 = x[target==1]
-    y0 = y[target==0]
-    y1 = y[target==1]
-    return np.asarray(x0), np.asarray(y0), np.asarray(x1), np.asarray(y1)
+def filter2D(fx, gx, target):
+    fx0 = fx[target==0]
+    fx1 = fx[target==1]
+    gx0 = gx[target==0]
+    gx1 = gx[target==1]
+    return np.asarray(fx0), np.asarray(fx1), np.asarray(gx0), np.asarray(gx1)
 
 
 def calc_DO(fx, gx, target, n_data):
@@ -31,16 +32,14 @@ def calc_DO(fx, gx, target, n_data):
     data = data[0:n_data]
 
     # Filter data into signal and background
-    fx0, gx0, fx1, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
+    fx0, fx1, gx0, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
 
     # Compute DO
-    heavi_sum = 0
-    for idx in range(len(fx0)):
-        for idy in range(len(fx1)):
-            heavi_side = heaviside( (fx0[idx] - fx1[idy]) * (gx1[idy] - gx0[idx]) )
-            heavi_sum = heavi_side + heavi_sum
-    return 2*(np.abs((float(1.0/len(fx0)) * float(1.0/len(gx0)) * heavi_sum) - 0.5))
+    dif_1 = [(x-y) for x in fx0 for y in fx1 ]
+    dif_2 = [(x-y) for x in gx1 for y in gx0 ]
+    heavi_side = np.sum(heaviside(np.multiply(dif_1,dif_2)))
 
+    return 2*(np.abs((float(1.0/len(fx0)) * float(1.0/len(gx0)) * heavi_side) - 0.5))
 
 def boot_strap(fx, gx, target, n_data, boot_loops):
     # Calculate uncertainty using bootstrap
