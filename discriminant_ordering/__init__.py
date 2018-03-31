@@ -72,7 +72,10 @@ def boot_strap(fx, gx, target, n_data, boot_loops):
 
 
 ''' Main DO function '''
-def DO(fx, gx, target, n_data, stats=False, boot_loops=100):
+def DO(fx, gx, target, n_data=None, stats=False, boot_loops=100):
+    if n_data == None:
+        n_data = min(len(fx), len(gx))
+        print('running on %0.f' %n_data)
     if stats==True:
         return boot_strap(fx, gx, target, n_data, boot_loops)
     else:
