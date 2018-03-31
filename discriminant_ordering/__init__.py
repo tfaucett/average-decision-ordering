@@ -36,10 +36,30 @@ def calc_DO(fx, gx, target, n_data):
     # Filter data into signal and background
     fx0, fx1, gx0, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
 
-    # Compute DO
-    dif_1 = [(x-y) for x in fx0 for y in fx1 ]
-    dif_2 = [(x-y) for x in gx0 for y in gx1 ]
-    heavi_side = heaviside(np.multiply(dif_1,dif_2))
+    heavi_side = heaviside(np.multiply([(x-y) for x in fx0 for y in fx1 ],[(x-y) for x in gx0 for y in gx1 ]))
+
+    return 2*(np.abs(((1.0/len(heavi_side)) * np.sum(heavi_side)) - 0.5))
+
+def calc_DO_itertools(fx, gx, target, n_data):
+    # This is an alternate way of calculating the DO. But testing has shown that it's about half as fast as the numpy approach
+    # normalize input data
+    fx = norm(fx)
+    gx = norm(gx)
+
+    min_length = min(len(fx), len(gx))
+
+    # Data is shuffled to select a random subset of the input
+    data = np.vstack((fx[0:min_length], gx[0:min_length], target[0:min_length])).T
+    np.random.seed(123)
+    np.random.shuffle(data)
+
+    # Reduce dataset to n_data size
+    data = data[0:n_data]
+
+    # Filter data into signal and background
+    fx0, fx1, gx0, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
+
+    heavi_side = heaviside(np.multiply(np.diff(list(itertools.product(fx0, fx1))),np.diff(list(itertools.product(gx0, gx1)))))
 
     return 2*(np.abs((float(1.0/len(heavi_side)) * np.sum(heavi_side)) - 0.5))
 
@@ -75,7 +95,6 @@ def boot_strap(fx, gx, target, n_data, boot_loops):
 def DO(fx, gx, target, n_data=None, stats=False, boot_loops=100):
     if n_data == None:
         n_data = min(len(fx), len(gx))
-        print('running on %0.f' %n_data)
     if stats==True:
         return boot_strap(fx, gx, target, n_data, boot_loops)
     else:
