@@ -18,7 +18,7 @@ def filter2D(fx, gx, target):
     return np.asarray(fx0), np.asarray(fx1), np.asarray(gx0), np.asarray(gx1)
 
 
-def calc_DO(fx, gx, target, n_data):
+def calc_ADO(fx, gx, target, n_data):
     # normalize input data
     fx = norm(fx)
     gx = norm(gx)
@@ -46,8 +46,8 @@ def calc_DO(fx, gx, target, n_data):
 
     return heavisum
 
-def calc_DO_itertools(fx, gx, target, n_data):
-    # This is an alternate way of calculating the DO. But testing has shown that it's about half as fast as the numpy approach
+def calc_ADO_itertools(fx, gx, target, n_data):
+    # This is an alternate way of calculating the ADO. But testing has shown that it's about half as fast as the numpy approach
     # normalize input data
     fx = norm(fx)
     gx = norm(gx)
@@ -82,23 +82,23 @@ def boot_strap(fx, gx, target, n_data, boot_loops):
     rng = np.random.RandomState(rng_seed)
     for i in range(n_bootstraps):
         indices = rng.random_integers(0, n_data - 1, n_data)
-        score = calc_DO(fx[indices], gx[indices], target[indices], len(fx[indices]))
+        score = calc_ADO(fx[indices], gx[indices], target[indices], len(fx[indices]))
         bootstrapped_scores.append(score)
         sorted_scores = np.array(bootstrapped_scores)
         sorted_scores.sort()
         confidence_lower = sorted_scores[int(0.025 * len(sorted_scores))]
         confidence_upper = sorted_scores[int(0.975 * len(sorted_scores))]
-    DO_mean = np.mean(bootstrapped_scores)
-    DO_var = np.std(bootstrapped_scores)
-    return DO_mean, DO_var
+    ADO_mean = np.mean(bootstrapped_scores)
+    ADO_var = np.std(bootstrapped_scores)
+    return ADO_mean, ADO_var
 
 
-''' Main DO function '''
-def DO(fx, gx, target, n_data=None, stats=False, boot_loops=100):
+''' Main ADO function '''
+def ADO(fx, gx, target, n_data=None, stats=False, boot_loops=100):
     if n_data == None:
         n_data = min(len(fx), len(gx))
     if stats==True:
         return boot_strap(fx, gx, target, n_data, boot_loops)
     else:
-        return calc_DO(fx, gx, target, n_data)
+        return calc_ADO(fx, gx, target, n_data)
 

@@ -1,8 +1,8 @@
 from setuptools import setup
 
-setup(name='discriminant_ordering',
-    version='0.3.3',
-    description='Calculates the DO metric',
+setup(name='average-decision-ordering',
+    version='0.4.0',
+    description='Calculates the average decision ordering metric',
     url='http://github.com/tfaucett/discriminant_ordering',
     author='Taylor Faucett',
     author_email='tfaucett@uci.edu',
