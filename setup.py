@@ -1,15 +1,15 @@
 from setuptools import setup
 
-setup(name='average-decision-ordering',
+setup(name='average_decision_ordering',
     version='0.4.0',
     description='Calculates the average decision ordering metric',
-    url='http://github.com/tfaucett/discriminant_ordering',
+    url='http://github.com/tfaucett/average_decision_ordering',
     author='Taylor Faucett',
     author_email='tfaucett@uci.edu',
     copyright = 'Copyright 9c) 2017 Taylor Faucett',
     keywords = ['statistics', 'physics', 'math'],
     license='MIT',
-    packages=['discriminant_ordering'],
+    packages=['average_decision_ordering'],
     install_requires=['numpy'],
     classifiers = [
         'Programming Language :: Python :: 2',
