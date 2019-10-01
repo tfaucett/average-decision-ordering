@@ -22,25 +22,25 @@ so, in the end,
 
 <p align="center"><img src="images/DO_legend.png" alt="DO_legend" width="250px"/></p>
 
-## Installing the discriminant ordering package
+## Installing the average decision ordering package
 
 ### From pip
 
-The discriminant ordering calculation is available on pypi. To install,
+The average decision ordering calculation is available on pypi. To install,
 
 ```python
-pip install discriminant_ordering
+pip install average_decision_ordering
 ```
 
-the discriminant ordering is designed to depend on numpy.
+the average decision ordering is designed to depend on numpy.
 
 ### Manual installation
 
 Download the package from github
 
 ```
-git clone https://github.com/tfaucett/discriminant_ordering.git
-cd discriminant_ordering
+git clone https://github.com/taylorfaucett/average_decision_ordering.git
+cd average_decision_ordering
 ```
 
 and run the setup script
@@ -49,7 +49,7 @@ and run the setup script
 python setup.py install
 ```
 
-## Using discriminant_ordering
+## Using average_decision_ordering
 
 ### General Usage
 
@@ -57,7 +57,7 @@ python setup.py install
 Import the package
 
 ```python
-from discriminant_ordering import ADO
+from average_decision_ordering import ADO
 ```
 
 The function requires 4 inputs:
@@ -87,7 +87,7 @@ A simple test file is provided *test.py*. Using random numbers for fx, gx and th
 
 ```python
 import numpy as np
-from discriminant_ordering import ADO
+from average_decision_ordering import ADO
 
 n_data = 5000
 n_calc = 500
