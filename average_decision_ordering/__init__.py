@@ -7,8 +7,7 @@ def heaviside(x):
     return 0.5 * (np.sign(x) + 1)
 
 def norm(x):
-    normed = (x-min(x))/(max(x)-min(x))
-    return normed
+    return (x-min(x))/(max(x)-min(x))
 
 def filter2D(fx, gx, target):
     fx0 = fx[target==0]
@@ -16,7 +15,6 @@ def filter2D(fx, gx, target):
     gx0 = gx[target==0]
     gx1 = gx[target==1]
     return np.asarray(fx0), np.asarray(fx1), np.asarray(gx0), np.asarray(gx1)
-
 
 def calc_ADO(fx, gx, target, n_data):
     # normalize input data
@@ -36,36 +34,10 @@ def calc_ADO(fx, gx, target, n_data):
     # Filter data into signal and background
     fx0, fx1, gx0, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
 
-    hside = heaviside(np.multiply([(x-y) for x in fx0 for y in fx1 ],[(x-y) for x in gx0 for y in gx1 ]))
-
-    heavisum = np.abs(((1.0/len(hside)) * np.sum(hside)))
-    if heavisum < 0.5:
-        heavisum = 1- heavisum
-    else:
-        pass
-
-    return heavisum
-
-def calc_ADO_itertools(fx, gx, target, n_data):
-    # This is an alternate way of calculating the ADO. But testing has shown that it's about half as fast as the numpy approach
-    # normalize input data
-    fx = norm(fx)
-    gx = norm(gx)
-
-    min_length = min(len(fx), len(gx))
-
-    # Data is shuffled to select a random subset of the input
-    data = np.vstack((fx[0:min_length], gx[0:min_length], target[0:min_length])).T
-    np.random.seed(123)
-    np.random.shuffle(data)
-
-    # Reduce dataset to n_data size
-    data = data[0:n_data]
-
-    # Filter data into signal and background
-    fx0, fx1, gx0, gx1 = filter2D(data[:,0], data[:,1], data[:,2])
-
-    hside = heaviside(np.multiply([(x-y) for x in fx0 for y in fx1 ],[(x-y) for x in gx0 for y in gx1 ]))
+    fxs = [(x-y) for x in fx0 for y in fx1 ]
+    gxs = [(x-y) for x in gx0 for y in gx1 ]
+    dos = np.multiply(fxs,gxs)
+    hside = heaviside(dos)
 
     heavisum = np.abs(((1.0/len(hside)) * np.sum(hside)))
     if heavisum < 0.5:

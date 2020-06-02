@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='average_decision_ordering',
-    version='0.4.0',
+    version='0.5.0',
     description='Calculates the average decision ordering metric',
     url='http://github.com/tfaucett/average_decision_ordering',
     author='Taylor Faucett',
