@@ -33,8 +33,8 @@ The ADO calculation only requires numpy and pandas
 Download the package from github
 
 ```
-git clone https://github.com/taylorfaucett/average_decision_ordering.git
-cd average_decision_ordering
+git clone https://github.com/taylorfaucett/average-decision-ordering.git
+cd average-decision-ordering
 ```
 
 and run the setup script
