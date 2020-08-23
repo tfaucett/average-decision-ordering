@@ -51,7 +51,7 @@ python setup.py install
 Import the package
 
 ```python
-from average_decision_ordering import ADO
+from average_decision_ordering import calc_ado
 ```
 
 The function requires 4 inputs:
