@@ -1,18 +1,14 @@
 import numpy as np
-from discriminant_ordering import ADO
+from average_decision_ordering import calc_ado
 
-n_data = 5000
-n_calc = 500
-x = np.random.rand(n_data)
-y = np.random.rand(n_data)
-targets = np.random.randint(2, size=n_data)
+data_size = 50000
+n_pairs = 100000
+x = np.random.rand(data_size)
+y = np.random.rand(data_size)
+targets = np.random.randint(2, size=data_size)
 
 # ADO calculated without statistics
-print(ADO(fx=x, gx=y, target=targets, n_data=n_calc))
-
-# ADO calculated with statistics (i.e. mean and stdev of ADO)
-print(ADO(fx=x, gx=y, target=targets, n_data=n_calc, stats=True))
+print(calc_ado(fx=x, gx=y, target=targets, n_pairs=N_pairs))
 
 # ADO example where you expect perfect similarity (i.e. compare x with x)
-print(ADO(fx=x, gx=x, target=targets, n_data=n_calc))
-print(ADO(fx=x, gx=x, target=targets, n_data=n_calc, stats=True))
+print(calc_ado(fx=x, gx=x, target=targets, n_pairs=N_pairs))

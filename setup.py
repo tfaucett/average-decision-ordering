@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='average_decision_ordering',
-    version='0.5.0',
+    version='0.5.2',
     description='Calculates the average decision ordering metric',
     url='http://github.com/tfaucett/average_decision_ordering',
     author='Taylor Faucett',
@@ -10,7 +10,7 @@ setup(name='average_decision_ordering',
     keywords = ['statistics', 'physics', 'math'],
     license='MIT',
     packages=['average_decision_ordering'],
-    install_requires=['numpy'],
+    install_requires=['numpy', 'pandas'],
     classifiers = [
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',

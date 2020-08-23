@@ -14,13 +14,7 @@ This can be thought of graphically by the diagram below
 
 <p align="center"><img src="images/DO_calc_example.png" alt="DO_calc_example" width="600px"/></p>
 
-When the two mappings are perfectly similiar or perfectly dissimilar (i.e. opposit ordering), summing all ADO and normalizing to 1 yields the result 0 and 1, respectively. When the mappings are not at all related (i.e. the ordering is 50% similar and 50% dissimilar), summing over all ADO-> 0.5. We can then map this to a more convenient scale by taking
-
-<p align="center"><img src="images/DO_norm.png" alt="DO_norm" width="170px"/></p>
-
-so, in the end,
-
-<p align="center"><img src="images/DO_legend.png" alt="DO_legend" width="250px"/></p>
+When the two mappings are perfectly similiar or perfectly dissimilar (i.e. opposit ordering), summing all ADO and normalizing to 1 yields the result 0 and 1, respectively. When the mappings are not at all related (i.e. the ordering is 50% similar and 50% dissimilar), summing over all ADO-> 0.5. 
 
 ## Installing the average decision ordering package
 
@@ -32,10 +26,10 @@ The average decision ordering calculation is available on pypi. To install,
 pip install average_decision_ordering
 ```
 
-the average decision ordering is designed to depend on numpy.
+### Requirements
+The ADO calculation only requires numpy and pandas
 
 ### Manual installation
-
 Download the package from github
 
 ```
@@ -53,7 +47,7 @@ python setup.py install
 
 ### General Usage
 
-#### ADO without stats
+#### ADO Example
 Import the package
 
 ```python
@@ -64,57 +58,32 @@ The function requires 4 inputs:
 - fx = The mapping for your first function (must be an array)
 - gx = The mapping for your second function (must be an array)
 - targets = target values (e.g. signal/background) (must be an array of the form [0 1 1 0 1 ...])
-- n_data = The number of data_points you want to include in your calculation
+- n_pairs = The number of signal/background pairs to generate/check (note this value must be less than the product of the two inputs lengths.)
 
 ```python
-ADO(fx=x, gx=y, target=targets, n_data=5000)
+ADO(fx=x, gx=y, target=targets, n_pairs=100000)
 ```
 
 the output is a single floating point value of ADO.
 
-#### ADO with stats
-By default, ADO will ADO a single calculation and output that ADO value. An optional *stats* option will perform a bootstrap (i.e. multiple randomly selected calculations of ADO) and compute the mean and standard deviation for your ADO. To output *stats* for your ADO, instead use the command
-
-```python
-ADO(fx=x, gx=y, target=targets, n_data=5000, stats=True, boot_loops=100)
-```
-
-Where *boot_loops* allows you to specify how many times you want to loop through your data (i.e. how many calculations of ADO you want to include in your mean and standard deviation). Including stats gives 2 floating point numbers as the output (i.e. mean, st_dev).
-
 ## Test Example
 
-A simple test file is provided *test.py*. Using random numbers for fx, gx and the target values means we expect the ADO to be approximately zero.
+A simple test file is provided *example.py*. Using random numbers for fx, gx and the target values means we expect the ADO to be approximately zero.
 
 ```python
 import numpy as np
-from average_decision_ordering import ADO
+from average_decision_ordering import calc_ado
 
-n_data = 5000
-n_calc = 500
-x = np.random.rand(n_data)
-y = np.random.rand(n_data)
-targets = np.random.randint(2, size=n_data)
+data_size = 50000
+n_pairs = 100000
+x = np.random.rand(data_size)
+y = np.random.rand(data_size)
+targets = np.random.randint(2, size=data_size)
 
 # ADO calculated without statistics
-print(ADO(fx=x, gx=y, target=targets, n_data=n_calc))
-
-# ADO calculated with statistics (i.e. mean and stdev of ADO)
-print(ADO(fx=x, gx=y, target=targets, n_data=n_calc, stats=True))
+print(calc_ado(fx=x, gx=y, target=targets, n_pairs=N_pairs))
 
 # ADO example where you expect perfect similarity (i.e. compare x with x)
-print(ADO(fx=x, gx=x, target=targets, n_data=n_calc))
-print(ADO(fx=x, gx=x, target=targets, n_data=n_calc, stats=True))
+print(calc_ado(fx=x, gx=x, target=targets, n_pairs=N_pairs))
+
 ```
-
-which yields the expected result (note your results will differ as every time this test file is run, it generates a new set of random values)
-```python
-0.0009599999999998499
-(0.030339066141999212, 0.024181331076012114)
-
-1.0
-(1.0, 8.881784197001253e-17)
-```
-
-
-
-

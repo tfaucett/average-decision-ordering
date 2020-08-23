@@ -1,20 +1,16 @@
 #! /usr/bin/env python
 
 import numpy as np
-from __init__ import ADO
+from __init__ import calc_ado
 
 n_data = 5000
 n_calc = 500
 x = np.random.rand(n_data)
-y = np.random.rand(n_data+100)
+y = np.random.rand(n_data)
 targets = np.random.randint(2, size=n_data)
 
 # ADO calculated without statistics
-print(ADO(fx=x, gx=y, target=targets))
-
-# ADO calculated with statistics (i.e. mean and stdev of ADO)
-print(ADO(fx=x, gx=y, target=targets, stats=True))
+print(calc_ado(fx=x, gx=y, target=targets))
 
 # ADO example where you expect perfect similarity (i.e. compare x with x)
-print(ADO(fx=x, gx=x, target=targets, n_data=n_calc))
-print(ADO(fx=x, gx=x, target=targets, n_data=n_calc, stats=True, boot_loops=20))
+print(calc_ado(fx=x, gx=x, target=targets, n_data=n_calc))
