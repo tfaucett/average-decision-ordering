@@ -78,5 +78,7 @@ def calc_ado(fx, gx, target, n_pairs):
     # find differently ordered pairs
     dos = calc_do(fx0=fx0, fx1=fx1, gx0=gx0, gx1=gx1)
     ado_val = np.mean(dos)
+    if ado_val < 0.5:
+        ado_val = 1.0 - ado_val
 
     return ado_val
