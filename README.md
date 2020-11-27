@@ -61,7 +61,7 @@ The function requires 4 inputs:
 - n_pairs = The number of signal/background pairs to generate/check (note this value must be less than the product of the two inputs lengths.)
 
 ```python
-ADO(fx=x, gx=y, target=targets, n_pairs=100000)
+calc_ado(fx=x, gx=y, target=targets, n_pairs=100000)
 ```
 
 the output is a single floating point value of ADO.
